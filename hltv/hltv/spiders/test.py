@@ -92,16 +92,50 @@ class testSpider(scrapy.Spider):
             roundNo = roundNo + 1
 
 
+        #parse/cleaning
+        clean_left_team_name = raw_left_team_name[0].split()[1][5:]
+        clean_right_team_name = raw_right_team_name[0].split()[1][5:]
+        clean_left_team_score = raw_left_team_score[0].split()[2]
+        clean_right_team_score = raw_right_team_score[0].split()[2]
+
+        clean_left_team_score =re.search('>(.*)<',clean_left_team_score).group(1)
+        clean_right_team_score =re.search('>(.*)<',clean_right_team_score).group(1)
 
 
         yield{
-                'team1_name': raw_left_team_name,
-                'team2_name': raw_right_team_name,
-                'team1_score': raw_left_team_score,
-                'team2_score': raw_right_team_score, 
+                'team1_name': clean_left_team_name,
+                'team2_name': clean_right_team_name,
+                'team1_score': clean_left_team_score,
+                'team2_score': clean_right_team_score, 
                 'r1_score': roundScoresFilledH1[0], 
                 'r2_score': roundScoresFilledH1[1], 
-                'r3_score': roundScoresFilledH1[2]
+                'r4_score': roundScoresFilledH1[3],
+                'r5_score': roundScoresFilledH1[4],
+                'r6_score': roundScoresFilledH1[5],
+                'r7_score': roundScoresFilledH1[6],
+                'r8_score': roundScoresFilledH1[7],
+                'r9_score': roundScoresFilledH1[8],
+                'r10_score': roundScoresFilledH1[9],
+                'r11_score': roundScoresFilledH1[10],
+                'r12_score': roundScoresFilledH1[11],
+                'r13_score': roundScoresFilledH1[12],
+                'r14_score': roundScoresFilledH1[13],
+                'r15_score': roundScoresFilledH1[14],
+                'r16_score': roundScoresFilledH2[0],
+                'r17_score': roundScoresFilledH2[1],
+                'r18_score': roundScoresFilledH2[2],
+                'r19_score': roundScoresFilledH2[3],
+                'r20_score': roundScoresFilledH2[4],
+                'r21_score': roundScoresFilledH2[5],
+                'r22_score': roundScoresFilledH2[6],
+                'r23_score': roundScoresFilledH2[7],
+                'r24_score': roundScoresFilledH2[8],
+                'r25_score': roundScoresFilledH2[9],
+                'r26_score': roundScoresFilledH2[10],
+                'r27_score': roundScoresFilledH2[11],
+                'r28_score': roundScoresFilledH2[12],
+                'r29_score': roundScoresFilledH2[13],
+                'r30_score': roundScoresFilledH2[14],
  }
 
          
