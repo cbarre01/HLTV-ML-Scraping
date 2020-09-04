@@ -12,12 +12,11 @@ class testSpider(scrapy.Spider):
         
         urls = self.getMatchPageURLs()
         for url in urls:
+            sleep(5) ## Avoid angering website
             yield scrapy.Request(url=url, callback=self.parse1)
-            sleep(0.5) ## Avoid angering website
 
     def getMatchPageURLs(self):
         #Returns all the seperate web pages of most recent MAX_MATCH_NUM matches as a list
-        sleep(0.5) ## Avoid angering website
         MAX_MATCH_NUM = 1000
         match_page_offsets = range(50,MAX_MATCH_NUM,50)
         match_page_urls = []
@@ -32,6 +31,7 @@ class testSpider(scrapy.Spider):
         matches = response.xpath(XPATH_MATCHES)
         match_links = response.xpath("//div[@class='stats-section']/table/tbody/tr/td/a").extract()
 
+        sleep(5) ## Avoid angering website
         for match in match_links:
             sleep(0.5) ## Avoid angering website
             m = re.search('mapstatsid(.+?)">\n', match)
