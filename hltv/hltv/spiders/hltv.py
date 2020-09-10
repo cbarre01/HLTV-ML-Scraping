@@ -4,6 +4,8 @@ import re
 import pdb
 from time import sleep
 
+scrapeNo = 450
+
 class testSpider(scrapy.Spider):
     name = 'hltv'
     def start_requests(self):
@@ -18,7 +20,8 @@ class testSpider(scrapy.Spider):
     def getMatchPageURLs(self):
         #Returns all the seperate web pages of most recent MAX_MATCH_NUM matches as a list
         MAX_MATCH_NUM = 1000
-        match_page_offsets = range(50,MAX_MATCH_NUM,50)
+        #match_page_offsets = range(50,MAX_MATCH_NUM,50)
+        match_page_offsets = [scrapeNo]
         match_page_urls = []
         base_url = 'https://www.hltv.org/stats/matches/'
         for i, os in enumerate(match_page_offsets):
@@ -31,7 +34,7 @@ class testSpider(scrapy.Spider):
         matches = response.xpath(XPATH_MATCHES)
         match_links = response.xpath("//div[@class='stats-section']/table/tbody/tr/td/a").extract()
 
-        sleep(5) ## Avoid angering website
+        #sleep(5) ## Avoid angering website
         for match in match_links:
             sleep(0.5) ## Avoid angering website
             m = re.search('mapstatsid(.+?)">\n', match)
@@ -150,9 +153,10 @@ class testSpider(scrapy.Spider):
                 'r30_score': roundScoresFilledH2[14],
  }
 
-         
-'''
-        with open('test', 'wb') as f:
+'''         
+        filename = 'hltv' + str(scrapeNo)
+        with open(filename, 'wb') as f:
             f.write(matches)
-        self.log('Saved file %s' % 'test')
+        self.log('Saved file %s' % 'filename')
 '''
+
